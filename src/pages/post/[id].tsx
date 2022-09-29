@@ -21,10 +21,6 @@ export async function getServerSideProps(
   context: GetServerSidePropsContext<{ id: string }>,
 ) {
   const { req, res } = context;
-  const ssg = await createSSGProxy({
-    req,
-    res,
-  } as trpcNext.CreateNextContextOptions);
 
   // This works...
   // const ssg = createProxySSGHelpers({
@@ -34,6 +30,10 @@ export async function getServerSideProps(
   // });
 
   // This doesn't work...
+  const ssg = await createSSGProxy({
+    req,
+    res,
+  } as trpcNext.CreateNextContextOptions);
   const id = context.params?.id as string;
   /*
    * Prefetching the `post.byId` query here.
